@@ -90,6 +90,31 @@ DATABASE_URL=postgresql://user:password@localhost:5432/automation_builder
 
 ### Database
 
+## 🗄 Database Setup (Prisma + PostgreSQL)
+
+This project uses **PostgreSQL** as the database and **Prisma ORM** for schema management and database access.
+
+You can run PostgreSQL either **locally** or using **Docker (recommended)**.
+
+---
+
+# Option 1 — Using Docker (Recommended)
+
+### 1. Start PostgreSQL with Docker
+
+Run the following command:
+
+```bash
+docker run --name workflow-postgres \
+  -e POSTGRES_USER=postgres \
+  -e POSTGRES_PASSWORD=postgres \
+  -e POSTGRES_DB=automation_workflows \
+  -p 5432:5432 \
+  -d postgres
+```
+This will start a PostgreSQL container running on port 5432.
+---
+
 Run Prisma migrations to create the schema:
 
 ```bash
