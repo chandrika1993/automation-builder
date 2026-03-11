@@ -1,0 +1,203 @@
+/* BaseNode.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@600;700&family=DM+Mono:wght@400;500&display=swap');
+
+/* ── Base ─────────────────────────────────────────────────────────────────── */
+
+.email-node {
+  --node-accent: #059669;
+  position: relative;
+  width: 200px;
+  background: var(--node-bg);
+  border: 1px solid var(--node-border);
+  border-radius: 12px;
+  padding: 0;
+  overflow: hidden;
+  cursor: pointer;
+  font-family: 'Syne', sans-serif;
+  box-shadow: var(--node-shadow-sm);
+  transition:
+    border-color 0.2s ease,
+    box-shadow   0.2s ease,
+    transform    0.15s ease;
+}
+
+/* ── Hover & selected ─────────────────────────────────────────────────────── */
+
+.email-node:hover {
+  border-color: color-mix(in srgb, var(--node-accent) 40%, transparent);
+  transform: translateY(-2px);
+  box-shadow:
+    var(--node-shadow-hover),
+    0 0 0 1px color-mix(in srgb, var(--node-accent) 15%, transparent);
+}
+
+.email-node--selected {
+  border-color: color-mix(in srgb, var(--node-accent) 70%, transparent) !important;
+  box-shadow:
+    var(--node-shadow-selected),
+    0 0 0 2px color-mix(in srgb, var(--node-accent) 25%, transparent),
+    0 0 16px color-mix(in srgb, var(--node-accent) 10%, transparent) !important;
+}
+
+/* ── Glow ─────────────────────────────────────────────────────────────────── */
+
+.email-node__glow {
+  position: absolute;
+  inset: -1px;
+  border-radius: 12px;
+  background: radial-gradient(
+    ellipse at 50% 0%,
+    color-mix(in srgb, var(--node-accent) 6%, transparent) 0%,
+    transparent 70%
+  );
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.email-node--selected .email-node__glow {
+  opacity: 1;
+}
+
+/* ── Header ───────────────────────────────────────────────────────────────── */
+
+.email-node__header {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 14px 8px;
+  border-bottom: 1px solid var(--node-border-head);
+  background: var(--node-bg-header);
+}
+
+.email-node__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background: color-mix(in srgb, var(--node-accent) 10%, var(--node-bg));
+  border: 1px solid color-mix(in srgb, var(--node-accent) 20%, transparent);
+  border-radius: 6px;
+  color: var(--node-accent);
+  flex-shrink: 0;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.email-node:hover .email-node__icon,
+.email-node--selected .email-node__icon {
+  background: color-mix(in srgb, var(--node-accent) 15%, var(--node-bg));
+  border-color: color-mix(in srgb, var(--node-accent) 35%, transparent);
+}
+
+.email-node__type {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--node-accent);
+  opacity: 0.9;
+}
+
+/* ── Body ─────────────────────────────────────────────────────────────────── */
+
+.email-node__body {
+  padding: 10px 14px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.email-node__label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--node-label);
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.email-node__placeholder {
+  color: var(--node-placeholder);
+  font-weight: 400;
+  font-style: italic;
+}
+
+.email-node__meta {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  font-family: 'DM Mono', monospace;
+}
+
+.email-node__meta-key {
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--node-meta-key);
+}
+
+.email-node__meta-val {
+  font-size: 10px;
+  color: var(--node-accent);
+  opacity: 0.85;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 140px;
+}
+
+.email-node__description {
+  font-size: 11px;
+  color: var(--node-desc);
+  line-height: 1.4;
+  font-family: 'DM Mono', monospace;
+}
+
+/* ── Accent bar ───────────────────────────────────────────────────────────── */
+
+.email-node__bar {
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--node-accent) 50%, transparent) 40%,
+    var(--node-accent) 60%,
+    transparent 100%
+  );
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.email-node:hover .email-node__bar,
+.email-node--selected .email-node__bar {
+  opacity: 1;
+}
+
+/* ── Handles ──────────────────────────────────────────────────────────────── */
+
+.email-node__handle {
+  width: 10px !important;
+  height: 10px !important;
+  background: var(--node-handle-bg) !important;
+  border: 2px solid var(--node-handle-border) !important;
+  border-radius: 50% !important;
+  transition:
+    border-color 0.15s ease,
+    background   0.15s ease,
+    transform    0.15s ease !important;
+}
+
+.email-node__handle:hover {
+  border-color: var(--node-accent) !important;
+  background: color-mix(in srgb, var(--node-accent) 10%, var(--node-bg)) !important;
+  transform: scale(1.4) !important;
+}
+
+.email-node--selected .email-node__handle {
+  border-color: color-mix(in srgb, var(--node-accent) 50%, transparent) !important;
+}

@@ -1,0 +1,185 @@
+/* WorkflowMenu.css */
+
+.workflow-menu {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* ── Trigger ──────────────────────────────────────────────────────────────── */
+
+.workflow-menu__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  border: 1px solid border-color;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.workflow-menu__trigger:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.8);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.workflow-menu__trigger--active {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.9);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.workflow-menu__trigger--active {
+  background: var(--bg-raised) !important;
+  color: var(--text-primary) !important;
+  border-color: var(--border-strong) !important;
+}
+
+/* ── Dropdown ─────────────────────────────────────────────────────────────── */
+
+.workflow-menu__dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  width: 200px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: var(--shadow-lg);
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  z-index: 200;
+
+  /* Hidden state */
+  opacity: 0;
+  transform: scale(0.96) translateY(-6px);
+  pointer-events: none;
+  transition:
+    opacity 0.15s ease,
+    transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.workflow-menu__dropdown--open {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  pointer-events: all;
+}
+
+/* Arrow pointing up at the trigger */
+.workflow-menu__dropdown::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  right: 10px;
+  width: 8px;
+  height: 8px;
+  background: var(--bg-surface);
+  border-left: 1px solid var(--border);
+  border-top: 1px solid var(--border);
+  transform: rotate(45deg);
+}
+
+/* ── Section label ────────────────────────────────────────────────────────── */
+
+.workflow-menu__label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 4px 10px 6px;
+  font-family: var(--font-ui);
+}
+
+/* ── Menu items ───────────────────────────────────────────────────────────── */
+
+.workflow-menu__item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 8px 10px;
+  border: none;
+  border-radius: 7px;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.12s ease;
+  text-align: left;
+  font-family: var(--font-ui);
+}
+
+.workflow-menu__item:hover {
+  background: var(--bg-raised);
+}
+
+/* ── Item icon pill ───────────────────────────────────────────────────────── */
+
+.workflow-menu__item-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.workflow-menu__item-icon--export {
+  background: rgba(99, 102, 241, 0.10);
+  color: var(--accent);
+  border: 1px solid rgba(99, 102, 241, 0.20);
+}
+
+.workflow-menu__item-icon--import {
+  background: rgba(5, 150, 105, 0.10);
+  color: #059669;
+  border: 1px solid rgba(5, 150, 105, 0.20);
+}
+
+[data-theme="dark"] .workflow-menu__item-icon--import {
+  color: #34d399;
+  background: rgba(52, 211, 153, 0.10);
+  border-color: rgba(52, 211, 153, 0.20);
+}
+
+/* ── Item text stack ──────────────────────────────────────────────────────── */
+
+.workflow-menu__item-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.workflow-menu__item-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1;
+}
+
+.workflow-menu__item-desc {
+  font-size: 10px;
+  color: var(--text-muted);
+  line-height: 1;
+  font-family: var(--font-mono);
+}
+
+.header-btn {
+  padding: 0;
+  outline: none;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  color: rgba(255, 255, 255, 0.4); /* ← makes icon visible by default */
+  background: transparent;
+  border: 1px solid var(--text-muted);
+  cursor: pointer;
+}
+
+.header-btn:hover {
+  color: rgba(255, 255, 255, 0.8);
+}
