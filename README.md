@@ -160,26 +160,67 @@ If you have questions about the requirements or run into issues with the starter
 
 A visual workflow automation builder built with Next.js and ReactFlow. Create, edit, and manage multi-step automation workflows using a drag-and-drop canvas.
 
+The goal of this project is to demonstrate:
+
+- Clean architecture and separation of concerns
+- Type-safe full-stack development
+- Scalable workflow data persistence
+- Thoughtful UI/UX improvements
+- Practical API design
+
+
+- # 🚀 Tech Stack
+
+## Frontend
+- Next.js
+- React
+- TypeScript
+- React Flow (workflow canvas)
+
+## Backend
+- Next.js API Routes
+- TypeScript
+
+## Database
+- PostgreSQL
+- Prisma ORM
+
 ---
 
-## Features
+# ✨Features
 
-- Drag-and-drop node canvas powered by ReactFlow
-- Node types: Email, Webhook, Delay, Condition, Custom (Input / Output / Default)
-- Auto-save with debounce and validation guard
-- Import / export workflows as JSON
-- Pre-built workflow templates
-- Inline workflow renaming
-- Paginated workflow list
-- Real-time validation panel with error and warning levels
+## Workflow Builder
+- Drag and drop nodes onto the canvas
+- Connect nodes using edges
+- Edit node properties using a modal
+- Real-time workflow state updates
 
+## Workflow Management
+- Create workflows
+- Retrieve workflows
+- Update workflows
+- Delete workflows
+
+## UI/UX Improvements
+- Improved node styling
+- Better spacing and layout
+- Clear visual hierarchy
+- Intuitive controls
+
+## Additional Features
+- Multiple node types (email, webhook, delay, condition)
+- Workflow validation (cycle detection and orphan nodes)
+- Keyboard shortcuts
+- Workflow Templates
+- Export / import workflows
+  
 ---
 
 ## Setup Instructions
 
 ### Prerequisites
 
-- Node.js 18+
+- Node.js 22
 - PostgreSQL (or any Prisma-supported database)
 
 ### Installation
