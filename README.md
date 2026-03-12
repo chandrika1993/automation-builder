@@ -275,3 +275,26 @@ No automated tests are included in this submission. The following is the strateg
 - Create workflow → add node → rename → verify auto-save indicator cycles to "Saved"
 - Import a valid JSON file → canvas populates → save fires
 - Import an invalid JSON file → error alert shown, canvas unchanged
+
+----
+
+## Some Screenshots of the App
+
+A Template Loaded on the Screen
+<img width="3024" height="1652" alt="image" src="https://github.com/user-attachments/assets/dc47e594-9ce2-44e8-a526-d223b4e5f315" />
+
+Edit Node Modal which appears on Single and Double Click
+<img width="962" height="888" alt="image" src="https://github.com/user-attachments/assets/28f354cd-e765-4f17-8285-2f41e0241a7a" />
+
+Side Navigation Panel with functionalities - View all Saved Workflows (list with delete option), Templates Section, Create Blank Workflow
+<img width="602" height="1656" alt="image" src="https://github.com/user-attachments/assets/3ad1bf16-6b63-4e6a-8722-03956f4eb1e9" />
+
+<img width="600" height="1656" alt="image" src="https://github.com/user-attachments/assets/59ddaa79-8c2e-4c77-9c45-b1d6f34d7ad2" />
+
+Export and Import Functionality which appears as a drop down from the Header Button
+<img width="602" height="424" alt="image" src="https://github.com/user-attachments/assets/8a50159a-cf85-4fd1-9e82-4f89e8c7d17f" />
+
+Rename workflow functionality- appears when user clicks on the current Workflow Name
+<img width="762" height="80" alt="image" src="https://github.com/user-attachments/assets/00b283a5-f230-4da6-b9c1-f2d533c814f6" />
+
+
