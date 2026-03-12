@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "./contexts/ThemeContext";
-import { geistMono, geistSans } from "./fonts";
+import { geistMono, geistSans } from "./Constants";
 
 export const metadata: Metadata = {
   title: "Otera Automation Builder",
