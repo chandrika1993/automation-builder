@@ -78,6 +78,9 @@ import {
 import { sanitizeEdge, sanitizeNode } from "../utils/sanitizeNodeEdges";
 import { getTemplateIcon } from "../utils/workflowTemplateIcons";
 import { MINIMAP_COLORS } from "../Constants";
+import { WorkflowPayload } from "../types/WorkflowPayload";
+import { useDebounce } from "../hooks/useDebounce";
+import { fetchJSON } from '../utils/fetchJSON'
 
 // Lazy-Loaded client-side only to avoid SSR issues with ReactFlow internals.
 const NodeEditModal = dynamic(() => import("./nodeEditModal/NodeEditModal"), {
@@ -87,75 +90,8 @@ const WorkflowList = dynamic(() => import("./workflowList/WorkflowList"), {
   ssr: false,
 });
 
-// Debounce helper
-/**
- * Returns a debounced copy of `value` that only updates after `ms` milliseconds
- * of silence. Used to batch rapid node/edge changes before validation and save.
- */
-function useDebounce<T>(value: T, ms: number): T {
-  const [debounced, setDebounced] = useState(value);
-  useEffect(() => {
-    const t = setTimeout(() => setDebounced(value), ms);
-    return () => clearTimeout(t);
-  }, [value, ms]);
-  return debounced;
-}
-
-/**
- * Thin wrapper around `fetch` that:
- *  - Reads the response as text first (avoids JSON.parse throwing on empty bodies)
- *  - Returns a discriminated union: `{ ok: true, data }` | `{ ok: false, error }`
- *  - Catches network errors (DNS failure, CORS, offline) and surfaces them uniformly
- *
- * All API calls in this file go through fetchJSON so error handling is consistent.
- */
-async function fetchJSON<T = any>(
-  url: string,
-  options?: RequestInit
-): Promise<
-  { ok: true; data: T } | { ok: false; status: number; error: string }
-> {
-  try {
-    const res = await fetch(url, options);
-    const text = await res.text();
-
-    if (!text?.trim()) {
-      return { ok: false, status: res.status, error: "Empty response body" };
-    }
-
-    let data: T;
-    try {
-      data = JSON.parse(text);
-    } catch {
-      return { ok: false, status: res.status, error: "Invalid JSON response" };
-    }
-
-    if (!res.ok) {
-      const message =
-        (data as any)?.error ?? res.statusText ?? "Request failed";
-      return { ok: false, status: res.status, error: message };
-    }
-
-    return { ok: true, data };
-  } catch (err) {
-    // Network error, DNS failure, CORS, etc.
-    return {
-      ok: false,
-      status: 0,
-      error: err instanceof Error ? err.message : "Network error",
-    };
-  }
-}
-
 const getNodeColor = (n: Node) => MINIMAP_COLORS[n.type ?? ""] ?? "#a1a1aa";
 
-// Workflow payload type
-type WorkflowPayload = {
-  id?: string;
-  name?: string;
-  nodes?: any[];
-  edges?: any[];
-};
 
 // Inner component
 /**
