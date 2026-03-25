@@ -4,7 +4,6 @@ import { z } from "zod";
 import { Prisma } from "@prisma/client";
 import { prisma } from "../../../../../lib/db";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
-// import { PrismaClientKnownRequestError } from "@prisma/client/runtime/binary";
 
 /**
  * Zod schema for PUT request body.
