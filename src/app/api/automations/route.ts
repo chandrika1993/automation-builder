@@ -2,7 +2,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { prisma } from "../../../../lib/db";
-import { Prisma } from "@prisma/client";
 
 const CreateWorkflowSchema = z.object({
   name:  z.string().optional().default("Untitled Workflow"),
