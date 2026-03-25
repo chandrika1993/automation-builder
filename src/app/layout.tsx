@@ -4,7 +4,7 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import { geistMono, geistSans } from "./Constants";
 
 export const metadata: Metadata = {
-  title: "Otera Automation Builder",
+  title: "Automation Builder",
   description: "Visual workflow automation builder",
 };
 
