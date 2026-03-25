@@ -82,8 +82,8 @@ export async function POST(req: NextRequest) {
     const workflow = await prisma.workflow.create({
       data: {
         name,
-        nodes: nodes as Prisma.InputJsonValue,
-        edges: edges as Prisma.InputJsonValue,
+        nodes: nodes,
+        edges: edges,
       },
     });
 

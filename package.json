@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.4.2",
-    "@prisma/client": "^7.4.2",
+    "@prisma/client": "^6.19.2",
     "@xyflow/react": "^12.10.0",
     "lucide-react": "^0.577.0",
     "next": "^16.1.6",
@@ -32,8 +32,12 @@
     "eslint-config-next": "16.1.6",
     "jest": "^30.2.0",
     "jest-environment-jsdom": "^30.2.0",
-    "prisma": "^7.4.2",
+    "prisma": "^6.19.2",
     "ts-jest": "^29.4.6",
     "typescript": "^5.9.3"
+  },
+  "overrides": {
+    "use-sync-external-store": "^1.4.0",
+    "effect": "^3.20.0"
   }
 }

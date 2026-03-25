@@ -95,8 +95,8 @@ const WorkflowList = dynamic(() => import("./workflowList/WorkflowList"), {
 function useDebounce<T>(value: T, ms: number): T {
   const [debounced, setDebounced] = useState(value);
   useEffect(() => {
-    const t = setTimeout(() => setDebounced(value), ms);
-    return () => clearTimeout(t);
+    const t = window.setTimeout(() => setDebounced(value), ms);
+    return () => window.clearTimeout(t);
   }, [value, ms]);
   return debounced;
 }
@@ -199,7 +199,7 @@ function AutomationBuilderInner() {
   );
 
   //  Refs
-  const clickTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const clickTimer = useRef<number | null>(null);
   const workflowNameRef = useRef(workflowName);
   const workflowIdRef = useRef(workflowId);
 
@@ -218,7 +218,7 @@ function AutomationBuilderInner() {
    * Cleared and replaced on every call so rapid workflow switches never
    * leave stale timers that re-open the `initialized` window.
    */
-  const initTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const initTimerRef = useRef<number | null>(null);
 
   /**
    * Monotonic counter incremented on every `applyWorkflow` call.
@@ -274,7 +274,7 @@ function AutomationBuilderInner() {
 
       // Pre-stamp so the auto-save diff check sees no change on load
       if (initTimerRef.current) {
-        clearTimeout(initTimerRef.current);
+        window.clearTimeout(initTimerRef.current);
         initTimerRef.current = null;
       }
 
@@ -298,7 +298,7 @@ function AutomationBuilderInner() {
       setSaveStatus("saved");
 
       // Re-enable save detection after ReactFlow finishes its internal layout
-      initTimerRef.current = setTimeout(() => {
+      initTimerRef.current = window.setTimeout(() => {
         initialized.current = true;
         initTimerRef.current = null;
       }, 200);
@@ -365,14 +365,23 @@ function AutomationBuilderInner() {
    * rapid clicks from stacking multiple modal opens.
    */
   const onNodeClick = useCallback((_: React.MouseEvent, node: Node) => {
-    if (clickTimer.current) clearTimeout(clickTimer.current);
-    clickTimer.current = setTimeout(() => {
+    if (clickTimer.current !== null) {
+      window.clearTimeout(clickTimer.current);
+      clickTimer.current = null;
+    }
+  
+    clickTimer.current = window.setTimeout(() => {
       setEditingNode(node as Node<NodeData>);
+      clickTimer.current = null;
     }, 250);
   }, []);
 
   const onNodeDoubleClick = useCallback((_: React.MouseEvent, node: Node) => {
-    if (clickTimer.current) clearTimeout(clickTimer.current);
+    if (clickTimer.current !== null) {
+      window.clearTimeout(clickTimer.current);
+      clickTimer.current = null;
+    }
+  
     setEditingNode(node as Node<NodeData>);
   }, []);
 
@@ -686,9 +695,23 @@ function AutomationBuilderInner() {
 
     return () => {
       cancelled = true;
-      clearTimeout(t);
+      window.clearTimeout(t);
     };
   }, [debouncedNodes, debouncedEdges]);
+
+  useEffect(() => {
+    return () => {
+      if (clickTimer.current !== null) {
+        window.clearTimeout(clickTimer.current);
+        clickTimer.current = null;
+      }
+  
+      if (initTimerRef.current !== null) {
+        window.clearTimeout(initTimerRef.current);
+        initTimerRef.current = null;
+      }
+    };
+  }, []);
 
   //  Commit title
   /**

@@ -3,6 +3,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { Prisma } from "@prisma/client";
 import { prisma } from "../../../../../lib/db";
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
+// import { PrismaClientKnownRequestError } from "@prisma/client/runtime/binary";
 
 /**
  * Zod schema for PUT request body.
@@ -88,8 +90,8 @@ export async function PUT(req: NextRequest, { params }: Context) {
       where: { id },
       data: {
         ...(name  !== undefined && { name }),
-        ...(nodes !== undefined && { nodes: nodes as Prisma.InputJsonValue }),
-        ...(edges !== undefined && { edges: edges as Prisma.InputJsonValue }),
+        ...(nodes !== undefined && { nodes: nodes }),
+        ...(edges !== undefined && { edges: edges }),
       },
     });
 
@@ -100,7 +102,7 @@ export async function PUT(req: NextRequest, { params }: Context) {
     });
   } catch (error) {
     console.error(`[WORKFLOW_PUT] ${error}`);
-    if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2025") {
+    if (error instanceof PrismaClientKnownRequestError && error.code === "P2025") {
       return NextResponse.json({ error: "Workflow not found" }, { status: 404 });
     }
     return NextResponse.json({ error: "Failed to update workflow" }, { status: 500 });
@@ -121,7 +123,7 @@ export async function DELETE(_req: NextRequest, { params }: Context) {
     return new NextResponse(null, { status: 204 });
   } catch (error) {
     console.error(`[WORKFLOW_DELETE] ${error}`);
-    if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2025") {
+    if (error instanceof PrismaClientKnownRequestError && error.code === "P2025") {
       return NextResponse.json({ error: "Workflow not found" }, { status: 404 });
     }
     return NextResponse.json({ error: "Failed to delete workflow" }, { status: 500 });
