@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { geistMono, geistSans } from "./Constants";
+import DemoMode from "@/demo/DemoMode";
 
 export const metadata: Metadata = {
   title: "Automation Builder",
@@ -31,6 +32,7 @@ export default function RootLayout({
         <ThemeProvider>
           {children}
         </ThemeProvider>
+        <DemoMode />
       </body>
     </html>
   );
